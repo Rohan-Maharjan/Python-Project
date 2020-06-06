@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
-import matplotlib
 import numpy as np 
 
+#method for autolabeling above the bars
 def autolabel(rects, ax):
     """Attach a text label above each bar in *rects*, displaying its height."""
     for rect in rects:
@@ -12,6 +12,7 @@ def autolabel(rects, ax):
                     textcoords="offset points", #Offset (in points) from the xy value
                     ha='center', va='bottom') #ha, va = horizontal and vertical allignments
 
+#method that plots bar graphs of each category/column on the basis of Development Region
 def bargraph_Dev_region(x_values, y_values, category = 'Total'):
     
     fig, ax = plt.subplots()
@@ -32,13 +33,13 @@ def bargraph_Dev_region(x_values, y_values, category = 'Total'):
     ax.ticklabel_format(style = 'plain', axis = 'y') #converts 1e6 to 10^6
     autolabel(graph, ax)
     
-    plt.savefig(f'Graphs\{graph_name}', bbox_inches = 'tight')
+    plt.savefig(f'Graphs (Outputs)\{graph_name}', bbox_inches = 'tight')
     print(f'{graph_name} has been saved')
 
 
 
 
-
+#method that plots bar graphs of each Development region on the basis of types of roofs
 def bargraph_types_of_roofs(x_values, y_values, Dev_region):
     
     fig, ax = plt.subplots()
@@ -53,12 +54,12 @@ def bargraph_types_of_roofs(x_values, y_values, Dev_region):
         tick.set_rotation(90)
     autolabel(graph, ax)
     
-    plt.savefig(f'Graphs\{graph_name}', bbox_inches = 'tight')
+    plt.savefig(f'Graphs (Outputs)\{graph_name}', bbox_inches = 'tight')
     print(f'{graph_name} has been saved')
 
 
 
-
+#method for autolabeling above the bars in stacked bar graph
 def autolabel_stacked(rects, ax, Total):
     """Attach a text label above each bar in *rects*, displaying its height."""
     i = 0
@@ -73,12 +74,13 @@ def autolabel_stacked(rects, ax, Total):
         i += 1
 
         
-
+#method that plots stacked bar graph of each type of roof on the basis of Development region
 def stacked_bargraph(region,total,Thatch_Straw,Galvanized_iron,Tile_Slate,RCC,Wood_Planks,Mud,Others,Not_stated):
     
-    plt.rcParams['figure.figsize'] = (30,50)
+    plt.rcParams['figure.figsize'] = (30,50) #increase figure size to make the layers of plot for visible
     fig, ax = plt.subplots()
     
+    #to be used in the 'bottom' parameter in ax.bar to form the stacked bar graph
     r12 = list(np.add(Thatch_Straw, Galvanized_iron))
     r123 = list(np.add(r12, Tile_Slate))
     r1234 = list(np.add(r123, RCC))
@@ -109,6 +111,6 @@ def stacked_bargraph(region,total,Thatch_Straw,Galvanized_iron,Tile_Slate,RCC,Wo
     ax.ticklabel_format(style = 'plain', axis = 'y') 
     autolabel_stacked(rect7, ax, total)
     ax.legend(fontsize = 60)
-    plt.savefig(f'Graphs\{graph_name}', bbox_inches = 'tight')
+    plt.savefig(f'Graphs (Outputs)\{graph_name}', bbox_inches = 'tight')
     print(f'{graph_name} has been saved')
     plt.rcParams['figure.figsize'] = (6.4, 4.8) #set figure size to default
